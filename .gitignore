@@ -1,47 +1,34 @@
-# Gradle files
-.gradle/
-build/
+# Gradle / Android build artifacts
+.gradle/**/executionHistory/executionHistory.bin
+.gradle/**/fileHashes/fileHashes.bin
+.gradle/**/buildOutputCleanup/cache.properties
+.gradle/**/buildOutputCleanup/outputFiles.bin
+.gradle/**/executionHistory.lock
+.gradle/**/fileHashes.lock
+.gradle/**/buildOutputCleanup.lock
+.gradle/*/checksums/
+.gradle/*/dependencies-accessors/
+.gradle/*/fileChanges/
+.gradle/*/fileHashes/
+#.gradle/*/gc.properties # 保留拷贝文件占位 .gradle/8.7/gc.properties
+.gradle/vcs-1/gc.properties
 
-# Local configuration file (sdk path, etc)
-local.properties
 
-# Log/OS Files
-*.log
+app/.cxx/Debug/
+app/.cxx/tools/
+# Baseline Profile 构建产物 app/release/baselineProfiles/0/app-release.dm
+app/release/
 
-# Android Studio generated files and folders
-captures/
-.externalNativeBuild/
-.cxx/
-*.apk
-output.json
+#build/
+app/build/kotlin/
+app/build/intermediates/
+app/build/generated/
+app/build/tmp/
+app/build/reports/
+app/build/outputs/mapping/
+app/build/outputs/logs/
 
-# IntelliJ
-*.iml
-.idea/
-misc.xml
-deploymentTargetDropDown.xml
-render.experimental.xml
-
-# Keystore files
-*.jks
-*.keystore
-
-# Google Services (e.g. APIs or Firebase)
-google-services.json
-
-# Android Profiling
-*.hprof
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
+# OS / editor junk
 .DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
-
+Thumbs.db
+*.log
