@@ -3,6 +3,28 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 
+BUILD_TYPE="${1:-debug}"
+
+case "$BUILD_TYPE" in
+    release|--release|-r)
+        GRADLE_TASK=":app:assembleRelease"
+        OUT_DIR="$PWD/app/build/outputs/apk/release"
+        ;;
+    debug|--debug|-d)
+        GRADLE_TASK=":app:assembleDebug"
+        OUT_DIR="$PWD/app/build/outputs/apk/debug"
+        ;;
+    --help|-h|help)
+        echo "Usage: $0 [debug|release]"
+        exit 0
+        ;;
+    *)
+        echo "未知参数: $BUILD_TYPE"
+        echo "Usage: $0 [debug|release]"
+        exit 1
+        ;;
+esac
+
 if [ -z "${ANDROID_HOME:-}" ]; then
     if [ -d "/home/vscode/.buildozer/android/platform/android-sdk" ]; then
         export ANDROID_HOME="/home/vscode/.buildozer/android/platform/android-sdk"
@@ -36,10 +58,10 @@ fi
 
 echo "使用 Android SDK: ${ANDROID_HOME:-未设置}"
 echo "使用 Java: ${JAVA_HOME:-未设置}"
-"$GRADLE_CMD" :app:assembleDebug
+echo "构建类型: $BUILD_TYPE"
+"$GRADLE_CMD" "$GRADLE_TASK"
 
-OUT_DIR="$PWD/app/build/outputs/apk/debug"
-APK_PATH="$(find "$OUT_DIR" -maxdepth 1 -type f -name '*.apk' | head -n 1)"
+APK_PATH="$(find "$OUT_DIR" -maxdepth 1 -type f -name '*.apk' | sort | head -n 1)"
 
 if [ -n "$APK_PATH" ]; then
     echo "APK 输出: $APK_PATH"

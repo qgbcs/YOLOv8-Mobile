@@ -16,6 +16,8 @@ import android.widget.Spinner
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
+import java.text.SimpleDateFormat;import java.util.Date;import java.util.Locale // qgb 时间格式化依赖
+
 class MainActivity : Activity(), SurfaceHolder.Callback {
     private val yolov8Ncnn = Yolov8Ncnn()
     private var facing = 0
@@ -33,7 +35,8 @@ class MainActivity : Activity(), SurfaceHolder.Callback {
         setContentView(R.layout.main_activity)
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-
+        title ="qgb time:"+ SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+        
         cameraView = findViewById<View>(R.id.camera_view) as SurfaceView
 
         cameraView!!.holder.setFormat(PixelFormat.RGBA_8888)
