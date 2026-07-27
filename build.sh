@@ -61,6 +61,28 @@ echo "使用 Java: ${JAVA_HOME:-未设置}"
 echo "构建类型: $BUILD_TYPE"
 "$GRADLE_CMD" "$GRADLE_TASK"
 
+if [ "$BUILD_TYPE" = "release" ]; then
+    echo "开始签名 release APK..."
+
+    UNSIGNED_APK=""
+    if [ -f "$OUT_DIR/app-release-unsigned.apk" ]; then
+        UNSIGNED_APK="$OUT_DIR/app-release-unsigned.apk"
+    else
+        UNSIGNED_APK="$(find "$OUT_DIR" -maxdepth 1 -type f -name '*-unsigned.apk' | sort | head -n 1)"
+    fi
+
+    if [ -n "$UNSIGNED_APK" ]; then
+        python3 "$PWD/apk_sign.py" "$UNSIGNED_APK"
+
+        TMP_DIR="$PWD/app/build/tmp"
+        mkdir -p "$TMP_DIR"
+        mv "$UNSIGNED_APK" "$TMP_DIR/$(basename "$UNSIGNED_APK")"
+        echo "已将未签名 APK 移动到: $TMP_DIR/$(basename "$UNSIGNED_APK")"
+    else
+        echo "未找到未签名 APK，跳过签名和移动。"
+    fi
+fi
+
 APK_PATH="$(find "$OUT_DIR" -maxdepth 1 -type f -name '*.apk' | sort | head -n 1)"
 
 if [ -n "$APK_PATH" ]; then

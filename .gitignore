@@ -17,7 +17,7 @@ app/.cxx/
 app/.cxx/Debug/
 app/.cxx/tools/
 # Baseline Profile 构建产物 app/release/baselineProfiles/0/app-release.dm
-app/release/
+app/release/bin
 
 #build/
 app/build/kotlin/
@@ -30,6 +30,8 @@ app/build/outputs/mapping/
 app/build/outputs/logs/
 app/build/outputs/**/baselineProfiles/
 app/build/outputs/apk/release/output-metadata.json
+app/build/outputs/apk/release/*.idsig  
+# app/build/outputs/apk/release/app-release-signed.apk.idsig
 app/build/outputs/native-debug-symbols/
 app/build/outputs/sdk-dependencies/
 
